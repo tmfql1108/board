@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.domain.BoardVO;
 import com.board.domain.PageMaker;
-import com.board.domain.ReplyVO;
 import com.board.domain.SearchCriteria;
 import com.board.service.BoardService;
 import com.board.service.ReplyService;
@@ -34,20 +33,19 @@ public class BoardController {
 	
 	//글목록 + 페이징 + 검색
 	@RequestMapping(value ="/listSearch", method = RequestMethod.GET)
-	public void getLlstSearch(@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
+	public void getLlstSearch(@ModelAttribute("scri") SearchCriteria scri, Model model, int board_no) throws Exception {
 		 log.info("BoardController:: getLlstSearch invoke");
 		
 		 List<BoardVO> list = service.listSearch(scri);
 		 model.addAttribute("list", list);   
 		 System.out.println(list.toString());
-		 
-		 model.addAttribute("replyVO", new ReplyVO());
 
 		 PageMaker pageMaker = new PageMaker();  //객체 생성
 		 pageMaker.setCri(scri);  
 		 pageMaker.setTotalCnt(service.searchCnt(scri));  //개수 계산
 		 
 		 model.addAttribute("pageMaker", pageMaker);
+	
 	}//listPage
 	
 	//게시물 작성
@@ -65,7 +63,7 @@ public class BoardController {
 	//게시물 작성
 	@RequestMapping ( value = "/write" , method = RequestMethod.POST)
 	public String postWirte( BoardVO vo ) 
-			throws Exception {
+			throws Exception  {
 		service.write(vo);
 		
 		return "redirect:/board/listSearch"; 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <!-- mybatis 사이트 참고해서 기본 코드 작성 --> 
+<mapper namespace ="com.board.mapper.ReplyMapper">
+<!--
+ resultType = 데이터를 쿼리를 실행한 뒤 결과가 있을 경우 사용
+parameterType = 데이터를 넣을때 사용 
+-->
+
+	<!-- 댓글리스트 -->
+	<select id="replyList"  resultType="com.board.domain.ReplyVO">
+		select 
+			comment_no, 
+			board_no, 
+			comment, 
+			member_nick, 
+			comment_reg
+		from tbl_comment
+		where 
+			board_no = #{board_no}
+		order by comment_no
+	</select>
+	
+	<!-- 어떤 게시글에 대한 댓글의 총 수 -->
+	<update  id = "updateReplyCnt" parameterType=  "int">
+		update tbl_board as b 
+		set b.replycnt = (select count(comment_no) from tbl_comment where board_no = #{board_no})
+        where b.board_no =#{board_no}
+	</update>
+	
+		<!-- 특정 댓글 조회 -->
+		<select id = "viewReplySelect"  resultType="com.board.domain.ReplyVO">
+			select
+				board_no, comment_no, member_nick, comment_reg
+			from tbl_comment
+			where comment_no = #{comment_no}
+		</select>
+
+		<!-- 댓글 등록 -->
+	<insert id="replyCreate" parameterType="com.board.domain.ReplyVO">
+	 insert into tbl_comment ( 
+	 	board_no , member_nick, comment ) values (
+	 		  	#{board_no}, #{member_nick}, #{comment}) 
+	 </insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="replyUpdate" parameterType="com.board.domain.ReplyVO"> 
+		UPDATE tbl_comment 
+			SET comment = #{comment} ,
+			 comment_reg = NOW() 
+		WHERE member_nick = #{member_nick}
+	 </update>
+
+<!-- 댓글 삭제 -->
+	<delete id="replyDelete"  parameterType="String"> 
+		delete from tbl_comment  
+			where  member_nick = #{member_nick};
+	</delete>
+
+
+</mapper>
