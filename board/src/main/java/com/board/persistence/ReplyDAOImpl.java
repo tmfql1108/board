@@ -52,9 +52,9 @@ public class ReplyDAOImpl implements ReplyDAO {
 	
 	//댓글 삭제
 	@Override
-	public void replyDelete(ReplyVO vo) throws Exception {
+	public void replyDelete(String member_nick) throws Exception {
 		log.info("===== ReplyDAOImpl :: replyDelete() invoked.");
-		sqlSession.delete(namespace + ".replyDelete", vo) ;
+		sqlSession.delete(namespace + ".replyDelete", member_nick) ;
 		
 	}
 

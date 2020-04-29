@@ -25,13 +25,13 @@ parameterType = 데이터를 넣을때 사용
 		order by comment_no
 	</select>
 	
-	<!-- 특정 댓글 조회 -->
-	<select id = "viewReplySelect"  resultType="com.board.domain.ReplyVO">
-		select
-			board_no, comment_no, member_nick, comment_reg
-		from tbl_comment
-		where comment_no = #{comment_no}
-	</select>
+		<!-- 특정 댓글 조회 -->
+		<select id = "viewReplySelect"  resultType="com.board.domain.ReplyVO">
+			select
+				board_no, comment_no, member_nick, comment_reg
+			from tbl_comment
+			where comment_no = #{comment_no}
+		</select>
 		
 		<!-- 댓글 등록 -->
 	<insert id="replyCreate" parameterType="com.board.domain.ReplyVO">
@@ -49,9 +49,9 @@ parameterType = 데이터를 넣을때 사용
 	 </update>
 
 <!-- 댓글 삭제 -->
-	<delete id="replyDelete"  parameterType="int"> 
+	<delete id="replyDelete"  parameterType="String"> 
 		delete from tbl_comment  
-			where  comment_no = #{comment_no};
+			where  member_nick = #{member_nick};
 	</delete>
 
 

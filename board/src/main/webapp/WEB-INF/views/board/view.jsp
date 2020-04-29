@@ -20,6 +20,8 @@
 
 	 <div class = "board-detail">
 			<form  class="board-detail-form"  method="post">
+				<input type ="hidden" id="comment_no" name = "comment_no" value = "${ readReply.comment_no}" readonly="readonly">
+				<input type ="hidden" id="board_no" name = "board_no" value = "${ readReply.board_no}" readonly="readonly">
 			
 				<input type ="hidden" id="page" name = "page" value = "${ scri.page}" readonly="readonly">
 				<input type ="hidden" id="perPageNum" name = "perPageNum" value = "${ scri.perPageNum}" readonly="readonly">
@@ -78,13 +80,20 @@
         <div class="review-entry" id="review-entry">
           <ul class='review-content' id='review-content'>
           </ul>
-        </div>
-		
-		
-	</div>
+       </div>	
+</div>
 
 <script type="text/javascript">
 
+	//페이지가 뜰때마다 리스트 뿌려주기
+	$(document).ready(function () {
+		console.log("+++++ready invoked : ");
+		commentLen = 0;
+		console.log("+++++commentLen : : " + commentLen);
+	    getReply(commentLen);
+	}); // (document).ready
+	
+	
 		var board_no = '${view.board_no}';   //게시글 번호
 		var member_nick = '${member.member_nick}';  //현재 로그인한 작성자
   		console.log("+++++board_no : "+board_no);
@@ -160,15 +169,6 @@
 	        } //error
       }); //ajax
     } //getReply
-    
-    
-    //페이지가 뜰때마다 리스트 뿌려주기
-    $(document).ready(function () {
-    	console.log("+++++ready invoked : ");
-    	commentLen = 0;
-    	console.log("+++++commentLen : : " + commentLen);
-        getReply(commentLen);
-    }); // (document).ready
     </script>
 
   <script type="text/javascript">
@@ -210,6 +210,12 @@
       //댓글 수정   
       $(document).on("click", ".review-btn-modify", function f_reply_Modify() {
         console.log("수정버튼 클릭");
+        var board_no = '${view.board_no}';
+    	var member_nick = '${member.member_nick}';
+    	var comment_no = '${ readReply.comment_no}';
+    	console.log("+++++board_no : "+board_no);
+    	console.log("+++++member_nick : "+member_nick);
+    	console.log("+++++comment_no : "+comment_no);
 
         var mod_comment = $(this).parents().siblings('.review-text-result').text();
 
@@ -225,15 +231,14 @@
 
         $("#text-comment-modify").val(mod_comment);
       }); //replyModify click 
-   
-      </script>
+    </script>
 
 
     <script type="text/javascript">
       //댓글 수정 저장
      var board_no = '${view.board_no}';
 	var member_nick = '${member.member_nick}';
-	var comment_no = '${replyList.comment_no}';
+	var comment_no = '${ readReply.comment_no}';
 	console.log("+++++board_no : "+board_no);
 	console.log("+++++member_nick : "+member_nick);
 	console.log("+++++comment_no : "+comment_no);
@@ -270,8 +275,7 @@
     </script>
     
     <script type="text/javascript" >
-
-    var comment_no = '${replyList.comment_no}';
+    var member_nick = '${member.member_nick}';
   	console.log("+++++comment_no : "+comment_no);
       //댓글 삭제   
       $(document).on("click", ".review-btn-delete", function () {
@@ -284,7 +288,7 @@
             url: "/comment_delete",
             type: "POST",
             data: {
-              "comment_no": comment_no
+              "member_nick": member_nick
             },
             success: function () {
               getReply(commentLen);

@@ -24,25 +24,23 @@ public class ReplyController {
 	   
 	   @Inject
 		 ReplyService service;
-	  
+	  //@RequestParam("가져올 데이터의 이름") [데이터타입] [가져온데이터를 담을 변수]
 	  //댓글 리스트
 	@RequestMapping(value = "/comment_list")
-	public @ResponseBody List<ReplyVO>  replyList(BoardVO vo ,ReplyVO revo, Model model ,
+	public @ResponseBody List<ReplyVO>  replyList(BoardVO vo  ,Model model ,
 			@RequestParam(value = "member_nick", required = false) String member_nick,
 			@RequestParam(value = "board_no", required = false) int board_no
 			) throws Exception {
 		log.info("===== ReplyController :: replyList() invoked.");
 	
 		List<ReplyVO> replyList = service.replyList(vo.getBoard_no());
+
 		return replyList;
 	}  //end replyList
 	
 	//댓글 삽입
 	@RequestMapping(value ="/comment_insert")
-	   public @ResponseBody void replyInsert(
-			  @RequestParam(value = "member_nick", required = false) String member_nick,
-		      @RequestParam(value = "board_no", required = false) int board_no ,
-		      @ModelAttribute("ReplyVO") ReplyVO vo ) throws Exception{
+	   public @ResponseBody void replyInsert( @ModelAttribute("ReplyVO") ReplyVO vo ) throws Exception{
 		log.info("===== ReplyController :: replyInsert() invoked.");
 		
 		service.replyCreate(vo);
@@ -51,17 +49,15 @@ public class ReplyController {
 	//댓글 수정
 	@RequestMapping(value = "/comment_update")
 	   public @ResponseBody void getReplyUpdate(
-			   @ModelAttribute("ReplyVO") ReplyVO vo,
-	         @RequestParam(value = "member_nick", required = false) String member_nick,
-	         @RequestParam(value = "board_no", required = false) int board_no ,
-	         @RequestParam(value = "modcomment", required = false) String comment ,
-	         @RequestParam(value = "comment_no", required = false) String comment_no 
-	  ) throws Exception {
-	  
+			   @ModelAttribute("ReplyVO") ReplyVO vo, Model model,
+	           @RequestParam(value = "comment_no", required = false) int comment_no,
+	           @RequestParam(value = "modcomment", required = false) String comment 
+	          ) throws Exception {
 		log.info("===== ReplyController :: getReplyUpdate() invoked.");
-		
-		System.out.println(" service.replyUpdate(vo);" + vo);
-		     service.replyUpdate(vo);
+			vo = null;
+			vo = service.viewReplySelect(comment_no);
+			System.out.println("update : " + vo);
+			model.addAttribute("readReply", vo);
 	      
 	   }  //replyUpdate
 
@@ -69,13 +65,11 @@ public class ReplyController {
 
 	   @RequestMapping(value = "/comment_delete")
 		public @ResponseBody void replyDelete(
-				 @ModelAttribute("ReplyVO") ReplyVO vo,
-					 @RequestParam(value = "comment_no", required = false) int comment_no ) throws Exception {
+				@ModelAttribute("ReplyVO") ReplyVO vo, Model model,
+		           @RequestParam(value = "member_nick", required = false) int member_nick) throws Exception {
 		   log.info("===== ReplyController :: replyDelete() invoked.");
-
-		   System.out.println(" service.replyDelete(vo);;" + vo);
-
-		   service.replyDelete(vo);
+			 service.viewReplySelect(member_nick);
+		
 	      
 	   }  //replyDelete
 

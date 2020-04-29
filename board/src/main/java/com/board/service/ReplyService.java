@@ -14,7 +14,7 @@ public interface ReplyService {
 	
 	public  void replyUpdate(ReplyVO vo) throws Exception;  //댓글 수정
 	
-	public  void  replyDelete(ReplyVO vo) throws Exception;  //댓글 삭제
+	public  void  replyDelete(String member_nick) throws Exception;  //댓글 삭제
 	
 		
 } //end interface
