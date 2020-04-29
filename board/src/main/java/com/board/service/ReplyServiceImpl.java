@@ -48,9 +48,9 @@ public class ReplyServiceImpl implements ReplyService {
 
 	//댓글 삭제
 	@Override
-	public void replyDelete(String member_nick) throws Exception {
+	public String replyDelete(String member_nick) throws Exception {
 		log.info("===== ReplyServiceImpl :: replyDelete() invoked.");	
-		dao.replyDelete(member_nick);
+		return dao.replyDelete(member_nick);
 	}  //end replyDelete
 
 }  //end class

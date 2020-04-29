@@ -1,6 +1,5 @@
 package com.board.persistence;
 
-import java.lang.Thread.State;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -52,12 +51,10 @@ public class ReplyDAOImpl implements ReplyDAO {
 	
 	//댓글 삭제
 	@Override
-	public void replyDelete(String member_nick) throws Exception {
+	public String  replyDelete(String member_nick) throws Exception {
 		log.info("===== ReplyDAOImpl :: replyDelete() invoked.");
-		sqlSession.delete(namespace + ".replyDelete", member_nick) ;
-		
+		sqlSession.delete(namespace + ".replyDelete", member_nick);
+		return member_nick;
 	}
-
-
 
 }  //end class

@@ -45,7 +45,7 @@ parameterType = 데이터를 넣을때 사용
 		UPDATE tbl_comment 
 			SET comment = #{comment} ,
 			 comment_reg = NOW() 
-		WHERE comment_no = #{comment_no}
+		WHERE member_nick = #{member_nick}
 	 </update>
 
 <!-- 댓글 삭제 -->

@@ -200,6 +200,8 @@
 		              getReply(commentLen);
 		            }, //success
 		            error: function () {
+		            		   alert("댓글은 한번만 작성할수있습니다.");
+		            		   $("#text-comment").val("");
 		              console.log("error");
 	            } //error
 	          }) //ajax
@@ -212,10 +214,8 @@
         console.log("수정버튼 클릭");
         var board_no = '${view.board_no}';
     	var member_nick = '${member.member_nick}';
-    	var comment_no = '${ readReply.comment_no}';
     	console.log("+++++board_no : "+board_no);
     	console.log("+++++member_nick : "+member_nick);
-    	console.log("+++++comment_no : "+comment_no);
 
         var mod_comment = $(this).parents().siblings('.review-text-result').text();
 
@@ -238,23 +238,20 @@
       //댓글 수정 저장
      var board_no = '${view.board_no}';
 	var member_nick = '${member.member_nick}';
-	var comment_no = '${ readReply.comment_no}';
 	console.log("+++++board_no : "+board_no);
 	console.log("+++++member_nick : "+member_nick);
-	console.log("+++++comment_no : "+comment_no);
 
       $(document).on("click", ".modify-ok-btn", function f_replyModifyOK() {
         console.log(" 수정 버튼 클릭");
 
         var modcomment = $('#text-comment-modify').val();
-
+        console.log("+++++modcomment : "+modcomment);
         $.ajax({
           url: "/comment_update",
           type: "POST",
           data: {
         	   "board_no": board_no,
                "member_nick": member_nick,
-               "comment_no": comment_no,
                "modcomment": modcomment
           },
           success: function () {

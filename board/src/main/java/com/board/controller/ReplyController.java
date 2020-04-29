@@ -50,25 +50,26 @@ public class ReplyController {
 	@RequestMapping(value = "/comment_update")
 	   public @ResponseBody void getReplyUpdate(
 			   @ModelAttribute("ReplyVO") ReplyVO vo, Model model,
-	           @RequestParam(value = "comment_no", required = false) int comment_no,
+			   @RequestParam(value = "member_nick", required = false) String  member_nick,
 	           @RequestParam(value = "modcomment", required = false) String comment 
 	          ) throws Exception {
 		log.info("===== ReplyController :: getReplyUpdate() invoked.");
-			vo = null;
-			vo = service.viewReplySelect(comment_no);
-			System.out.println("update : " + vo);
-			model.addAttribute("readReply", vo);
+		
+			vo.setComment(comment);
+			service.replyUpdate(vo);
+			
 	      
 	   }  //replyUpdate
 
 
 
 	   @RequestMapping(value = "/comment_delete")
-		public @ResponseBody void replyDelete(
+		public @ResponseBody String replyDelete(
 				@ModelAttribute("ReplyVO") ReplyVO vo, Model model,
-		           @RequestParam(value = "member_nick", required = false) int member_nick) throws Exception {
+		           @RequestParam(value = "member_nick", required = false) String  member_nick) throws Exception {
 		   log.info("===== ReplyController :: replyDelete() invoked.");
-			 service.viewReplySelect(member_nick);
+		   
+			return service.replyDelete(member_nick);
 		
 	      
 	   }  //replyDelete
