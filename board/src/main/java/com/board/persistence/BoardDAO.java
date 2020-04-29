@@ -28,6 +28,4 @@ public interface BoardDAO {
 	
 		//게시물 총 갯수
 	public int searchCnt(SearchCriteria scri ) throws Exception;
-
-		
-}
+} //end interface

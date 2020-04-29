@@ -24,7 +24,8 @@ public class ReplyController {
 	   
 	   @Inject
 		 ReplyService service;
-	   
+	  
+	  //댓글 리스트
 	@RequestMapping(value = "/comment_list")
 	public @ResponseBody List<ReplyVO>  replyList(BoardVO vo ,ReplyVO revo, Model model ,
 			@RequestParam(value = "member_nick", required = false) String member_nick,
@@ -33,12 +34,10 @@ public class ReplyController {
 		log.info("===== ReplyController :: replyList() invoked.");
 	
 		List<ReplyVO> replyList = service.replyList(vo.getBoard_no());
-		
-
 		return replyList;
-	}
+	}  //end replyList
 	
-	
+	//댓글 삽입
 	@RequestMapping(value ="/comment_insert")
 	   public @ResponseBody void replyInsert(
 			  @RequestParam(value = "member_nick", required = false) String member_nick,
@@ -47,9 +46,9 @@ public class ReplyController {
 		log.info("===== ReplyController :: replyInsert() invoked.");
 		
 		service.replyCreate(vo);
-
 	   }  //replyInsert
 	
+	//댓글 수정
 	@RequestMapping(value = "/comment_update")
 	   public @ResponseBody void getReplyUpdate(
 			   @ModelAttribute("ReplyVO") ReplyVO vo,
@@ -61,6 +60,7 @@ public class ReplyController {
 	  
 		log.info("===== ReplyController :: getReplyUpdate() invoked.");
 		
+		System.out.println(" service.replyUpdate(vo);" + vo);
 		     service.replyUpdate(vo);
 	      
 	   }  //replyUpdate
@@ -70,13 +70,12 @@ public class ReplyController {
 	   @RequestMapping(value = "/comment_delete")
 		public @ResponseBody void replyDelete(
 				 @ModelAttribute("ReplyVO") ReplyVO vo,
-					 @RequestParam(value = "comment_no", required = false) int comment_no
-					) throws Exception {
-	
-		
-		
-		   log.info("===== ReplyController :: getReplyUpdate() invoked.");
-		   service.replyDelete(comment_no);
+					 @RequestParam(value = "comment_no", required = false) int comment_no ) throws Exception {
+		   log.info("===== ReplyController :: replyDelete() invoked.");
+
+		   System.out.println(" service.replyDelete(vo);;" + vo);
+
+		   service.replyDelete(vo);
 	      
 	   }  //replyDelete
 

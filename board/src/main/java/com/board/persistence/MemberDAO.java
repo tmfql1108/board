@@ -16,4 +16,4 @@ public interface MemberDAO {
 	
 	public MemberVO nickCheck(String member_nick) throws Exception;  //회원 아이디 중복체크
 	
-}
+} //end interface

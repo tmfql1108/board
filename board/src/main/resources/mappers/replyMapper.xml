@@ -11,6 +11,7 @@
 parameterType = 데이터를 넣을때 사용 
 -->
 
+	<!-- 댓글리스트 -->
 	<select id="replyList"  resultType="com.board.domain.ReplyVO">
 		select 
 			comment_no, 
@@ -22,6 +23,14 @@ parameterType = 데이터를 넣을때 사용
 		where 
 			board_no = #{board_no}
 		order by comment_no
+	</select>
+	
+	<!-- 특정 댓글 조회 -->
+	<select id = "viewReplySelect"  resultType="com.board.domain.ReplyVO">
+		select
+			board_no, comment_no, member_nick, comment_reg
+		from tbl_comment
+		where comment_no = #{comment_no}
 	</select>
 		
 		<!-- 댓글 등록 -->

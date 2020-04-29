@@ -42,7 +42,8 @@ parameterType = 데이터를 넣을때 사용
 			board_no = #{board_no}		
 				]]>
 	</select>
-
+	
+	<!-- 조회수 증가 -->
 	<update id="updateViewCnt" parameterType="int"> 
 	<![CDATA[
 		 update tbl_board
@@ -50,7 +51,6 @@ parameterType = 데이터를 넣을때 사용
 		 	where board_no = #{board_no} 
 	]]>
 	</update> 
-
 	
 	<update id ="modify" parameterType="com.board.domain.BoardVO">
 		<![CDATA[
@@ -79,35 +79,27 @@ parameterType = 데이터를 넣을때 사용
 		select count(board_no) from tbl_board where board_no > 0 
 			]]>	
 	</select>
-	<!-- 게시물 리스트 + 페이징 -->
-	<select id="listPage" resultType="com.board.domain.BoardVO" parameterType="com.board.domain.Criteria">
-	select
-		 board_no, board_title, board_content, member_nick, board_viewcnt 
-		from (
-			select 
-					board_no, board_title, board_content, member_nick, board_viewcnt,
-					row_number() over(order by board_no desc) as rNum
-		    from tbl_board
-			) as board
-		where rNum between #{rowStart}  and #{rowEnd}
-		order by board_no desc
-	</select>
 	
-		<!-- 게시물 리스트 + 페이징 -->
+		<!-- 게시물 리스트 + 페이징  +  검색-->
 	<select id="listSearch" 
 				resultType="com.board.domain.BoardVO"
 				 parameterType="com.board.domain.SearchCriteria">
+	<![CDATA[
 	select
-		 board_no, board_title, board_content, member_nick, board_viewcnt, board_reg
-		from (
-			select 
-					board_no, board_title, board_content, member_nick, board_viewcnt ,board_reg,
-					row_number() over(order by board_no desc) as rNum
-		    from tbl_board
-		     <include refid="search"></include>
-			) as board
-		where rNum between #{rowStart}  and #{rowEnd}
-		order by board_no desc
+				 board_no, 
+				 board_title, 
+				 board_content, 
+				 member_nick, 
+				 board_viewcnt , 
+				 board_reg
+                 from tbl_board
+                 ]]>
+			<include refid="search"></include>
+			<![CDATA[
+				order by board_no desc ,board_reg desc
+				limit #{rowStart}  , #{rowEnd};
+	 ]]>
+
 	</select>
 	
 	<sql id="search">

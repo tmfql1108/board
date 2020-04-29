@@ -28,6 +28,13 @@ public class ReplyDAOImpl implements ReplyDAO {
 		return sqlSession.selectList(namespace + ".replyList", board_no);
 	}  //end replyList
 	
+	//특정 댓글 조회
+	@Override
+	public ReplyVO viewReplySelect(int comment_no) throws Exception {
+		log.info("===== ReplyDAOImpl :: viewReplySelect() invoked.");
+		return sqlSession.selectOne(namespace + ".viewReplySelect" , comment_no);
+	}  //end viewReplySelect
+	
 	//댓글 삽입
 	@Override
 	public void replyCreate(ReplyVO vo) throws Exception {
@@ -41,13 +48,15 @@ public class ReplyDAOImpl implements ReplyDAO {
 		log.info("===== ReplyDAOImpl :: replyUpdate() invoked.");
 		sqlSession.update(namespace + ".replyUpdate", vo) ;
 	}  //end replyUpdate
+
 	
 	//댓글 삭제
 	@Override
-	public void replyDelete(int comment_no) throws Exception {
+	public void replyDelete(ReplyVO vo) throws Exception {
 		log.info("===== ReplyDAOImpl :: replyDelete() invoked.");
-		sqlSession.delete(namespace + ".replyDelete", comment_no) ;
-	}  //end replyDelete
+		sqlSession.delete(namespace + ".replyDelete", vo) ;
+		
+	}
 
 
 
