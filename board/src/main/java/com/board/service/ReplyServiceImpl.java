@@ -53,4 +53,6 @@ public class ReplyServiceImpl implements ReplyService {
 		return dao.replyDelete(member_nick);
 	}  //end replyDelete
 
+
+
 }  //end class

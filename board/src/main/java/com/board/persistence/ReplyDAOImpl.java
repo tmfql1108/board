@@ -57,4 +57,5 @@ public class ReplyDAOImpl implements ReplyDAO {
 		return member_nick;
 	}
 
+
 }  //end class

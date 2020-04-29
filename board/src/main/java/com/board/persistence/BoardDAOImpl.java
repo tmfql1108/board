@@ -20,7 +20,7 @@ public class BoardDAOImpl implements BoardDAO {
 	private SqlSession sqlSession;
 	private final String namespace = "com.board.mapper.BoardMapper";
 	
-
+	private final String namespace2 = "com.board.mapper.ReplyMapper";
 	
 	//게시글 작성
 	@Override

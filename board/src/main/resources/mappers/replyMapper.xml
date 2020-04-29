@@ -32,7 +32,7 @@ parameterType = 데이터를 넣을때 사용
 			from tbl_comment
 			where comment_no = #{comment_no}
 		</select>
-		
+
 		<!-- 댓글 등록 -->
 	<insert id="replyCreate" parameterType="com.board.domain.ReplyVO">
 	 insert into tbl_comment ( 

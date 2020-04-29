@@ -57,12 +57,9 @@ public class ReplyController {
 		
 			vo.setComment(comment);
 			service.replyUpdate(vo);
-			
-	      
 	   }  //replyUpdate
-
-
-
+	
+	//댓글 삭제
 	   @RequestMapping(value = "/comment_delete")
 		public @ResponseBody String replyDelete(
 				@ModelAttribute("ReplyVO") ReplyVO vo, Model model,

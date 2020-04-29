@@ -16,5 +16,4 @@ public interface ReplyDAO {
 	
 	public  String  replyDelete(String member_nick) throws Exception;  //댓글 삭제
 
-	
 }  //end interface
