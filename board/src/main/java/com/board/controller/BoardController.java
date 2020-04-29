@@ -33,7 +33,7 @@ public class BoardController {
 	
 	//글목록 + 페이징 + 검색
 	@RequestMapping(value ="/listSearch", method = RequestMethod.GET)
-	public void getLlstSearch(@ModelAttribute("scri") SearchCriteria scri, Model model, int board_no) throws Exception {
+	public void getLlstSearch(@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		 log.info("BoardController:: getLlstSearch invoke");
 		
 		 List<BoardVO> list = service.listSearch(scri);
