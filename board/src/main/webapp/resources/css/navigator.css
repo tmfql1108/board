@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.navigator {
+	display: block;
+	float: right;
+}
+
+td > a{
+	color: black;
+    text-decoration: none;
+}
+#member-nick {
+	color: black;
+    text-decoration: none;
+}
