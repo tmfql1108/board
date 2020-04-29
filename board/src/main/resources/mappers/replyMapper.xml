@@ -25,6 +25,13 @@ parameterType = 데이터를 넣을때 사용
 		order by comment_no
 	</select>
 	
+	<!-- 어떤 게시글에 대한 댓글의 총 수 -->
+	<update  id = "updateReplyCnt" parameterType=  "int">
+		update tbl_board as b 
+		set b.replycnt = (select count(comment_no) from tbl_comment where board_no = #{board_no})
+        where b.board_no =#{board_no}
+	</update>
+	
 		<!-- 특정 댓글 조회 -->
 		<select id = "viewReplySelect"  resultType="com.board.domain.ReplyVO">
 			select

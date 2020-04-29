@@ -41,7 +41,7 @@
 				<c:forEach items="${list}" var="list">
 					<tr class = "tr">
 						<td class = "tdBoardNo">${list.board_no }</td>
-						<td class = "tdBoardTitle">	<a id = "BaardTitle-a" href = "/board/view?board_no=${list.board_no}&page=${scri.page}&perPageNum=${scri.perPageNum}">${list.board_title }</a></td>
+						<td class = "tdBoardTitle">	<a id = "BaardTitle-a" href = "/board/view?board_no=${list.board_no}&page=${scri.page}&perPageNum=${scri.perPageNum}">${list.board_title }</a><small><b>[ <c:out value="${list.replycnt} "/> ]</b></small></td>
 						<td class = "tdBoardNick">${list.member_nick }</td>
 						<td class = "tdBoardViewCnt">${list.board_viewcnt }</td>
 					</tr>

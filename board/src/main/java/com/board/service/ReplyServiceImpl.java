@@ -53,6 +53,12 @@ public class ReplyServiceImpl implements ReplyService {
 		return dao.replyDelete(member_nick);
 	}  //end replyDelete
 
-
+	// 게시글에 따른 댓글 개수
+	@Override
+	public void updateReplyCnt(int board_no) throws Exception {
+		log.info("===== ReplyServiceImpl :: updateReplyCnt() invoked.");	
+		
+		dao.updateReplyCnt(board_no);
+	}  //end updateReplyCnt
 
 }  //end class

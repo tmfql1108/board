@@ -16,4 +16,5 @@ public interface ReplyDAO {
 	
 	public  String  replyDelete(String member_nick) throws Exception;  //댓글 삭제
 
+	public void updateReplyCnt(int board_no) throws Exception;  // 게시글에 따른 댓글 개수
 }  //end interface

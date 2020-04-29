@@ -3,6 +3,7 @@ package com.board.persistence;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.sound.midi.Sequence;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Repository
 public class ReplyDAOImpl implements ReplyDAO {
-	
 	
 	@Inject
 	private SqlSession sqlSession;
@@ -55,6 +55,12 @@ public class ReplyDAOImpl implements ReplyDAO {
 		log.info("===== ReplyDAOImpl :: replyDelete() invoked.");
 		sqlSession.delete(namespace + ".replyDelete", member_nick);
 		return member_nick;
+	}
+
+	 // 게시글에 따른 댓글 개수
+	@Override
+	public void updateReplyCnt(int board_no) throws Exception {
+		sqlSession.update(namespace + ".updateReplyCnt", board_no);
 	}
 
 
