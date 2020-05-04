@@ -18,4 +18,4 @@ public class ReplyVO {
 	private String member_nick;
 	private String  comment_reg;
 	private int replycnt;
-}
+}  //end class

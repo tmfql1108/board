@@ -64,7 +64,7 @@ public class ReplyController {
 	
 	//댓글 삭제
 	   @RequestMapping(value = "/comment_delete")
-	public @ResponseBody String replyDelete(
+	public @ResponseBody void replyDelete(
 		   @ModelAttribute("ReplyVO") ReplyVO vo,
 	       @RequestParam(value = "member_nick", required = false) String  member_nick,
 	       @RequestParam(value = "board_no", required = false) int board_no , 
@@ -72,6 +72,6 @@ public class ReplyController {
 	 log.info("===== ReplyController :: replyDelete() invoked.");
 		   
 	   service.updateReplyCnt(board_no, -1);
-	   return service.replyDelete(member_nick);
+	   service.replyDelete(member_nick);
 	}  //replyDelete
 } //end class
