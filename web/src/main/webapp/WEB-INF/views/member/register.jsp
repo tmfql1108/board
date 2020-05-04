@@ -101,12 +101,6 @@
 			            form.member_pwd.focus();
 			            return false;
 			        }  //end if
-				 if (member_id == member_pwd) {
-			            alert("아이디와 비밀번호는 같을 수 없습니다!");
-			            form.member_pwd.value = "";
-			            form.member_pwd.focus();
-			            return false;
-			        }  //end if
 			        return true; //확인이 완료되었을 때
 			}  //end checkMemberPwd
 			
