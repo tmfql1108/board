@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <!-- mybatis 사이트 참고해서 기본 코드 작성 --> 
+<mapper namespace ="com.board.mapper.BoardMapper">
+
+<!--private int board_no;
+	private String board_title;
+	private String board_content;
+	private int board_viewcnt;
+	private Date board_reg;
+	private Date board_mod; 
+	private int replycnt;-->
+
+<!--
+ resultType = 데이터를 쿼리를 실행한 뒤 결과가 있을 경우 사용
+parameterType = 데이터를 넣을때 사용  		-->
+
+	<!-- 게시글 작성 -->
+	<insert id="write" parameterType="com.board.domain.BoardVO">
+		<![CDATA[
+		insert into
+		  		tbl_board (board_title, board_content , member_nick )
+		values( #{board_title},  #{board_content}, #{member_nick} )
+		]]>
+	</insert>
+	<!-- 게시글 작성 -->
+	
+	<!-- 게시글 상세 보기 -->
+	<select id ="view" resultType="com.board.domain.BoardVO">
+		<![CDATA[
+		select
+			board_no,
+			board_title, 
+			board_content, 
+			member_nick,
+			board_viewcnt,
+			board_reg
+		from
+			tbl_board
+		where
+			board_no = #{board_no}]]>
+	</select>
+	<!-- 게시글 상세 보기 -->
+	
+	<!-- 조회수 증가 -->
+	<update id="updateViewCnt" parameterType="int"> 
+	<![CDATA[
+		 update tbl_board
+		 	set board_viewcnt = board_viewcnt + 1 
+		 	where board_no = #{board_no} ]]>
+	</update> 
+	<!-- 조회수 증가 -->
+	
+	<!-- 게시글 수정 -->
+	<update id ="modify" parameterType="com.board.domain.BoardVO">
+		<![CDATA[
+		update tbl_board 
+			set
+			 board_title = #{board_title},
+			 board_content = #{board_content}	 
+		where board_no = #{board_no} and member_nick = #{member_nick}
+		]]>
+	</update>
+	<!-- 게시글 수정 -->
+	
+	<!--  게시물 번호만 있으면 삭제 가능하기 때문에 parameterType 를 int로 지정 -->
+	<!-- 게시글 삭제 -->
+	<delete id ="delete" parameterType="int"> 
+		<![CDATA[
+		delete from tbl_board 
+			where board_no = #{board_no}	
+			]]>
+	</delete>
+	<!-- 게시글 삭제 -->
+	
+	<!-- 게시물 리스트 + 페이징  +  검색-->
+	<!-- 게시물 총 합 -->
+	<select id = "listCnt" resultType ="int">
+		<![CDATA[
+		select count(board_no) from tbl_board where board_no > 0 
+			]]>	
+	</select>
+	<!-- 게시물 총 합 -->
+	
+	<!-- 게시글 리스트 조회 -->
+	<select id="listSearch" 
+				resultType="com.board.domain.BoardVO"
+				 parameterType="com.board.domain.SearchCriteria">
+	<![CDATA[
+	select
+		 board_no, 
+		 board_title, 
+		 board_content,
+		 member_nick, 
+		 board_viewcnt , 
+		 board_reg,
+		 replycnt
+    from tbl_board
+     ]]>
+	<include refid="search"></include>
+	<![CDATA[
+		order by board_no desc ,board_reg desc
+		limit #{rowStart}  , #{rowEnd};
+	 ]]>
+	</select>
+	<!-- 게시글 리스트 조회 -->
+	
+	<!-- 검색 조건 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 'all'.toString()" >  where  board_title like CONCAT('%${keyword}%') or board_content like CONCAT('%${keyword}%') or member_nick like CONCAT('%${keyword}%')</if>
+			<if test="searchType == 't'.toString()" >  where board_title like CONCAT('%${keyword}%') </if>
+			<if test="searchType == 'c'.toString()" >  where board_content like CONCAT('%${keyword}%') </if>
+			<if test="searchType == 'w'.toString()" >  where member_nick like CONCAT('%${keyword}%') </if>
+		</if>
+	</sql>
+	<!-- 검색 조건 -->
+	
+	<!-- 검색된 데이터 개수 -->
+	<select id="searchCnt" resultType = "int">
+		select count(board_no)
+		from tbl_board
+		<![CDATA[
+		where board_no > 0
+		]]>
+		 <include refid="searchcnt"></include>
+	</select>
+	
+	<sql id="searchcnt">
+		<if test="searchType != null">
+			<if test="searchType == 'all'.toString()" >  and  board_title like CONCAT('%${keyword}%') or board_content like CONCAT('%${keyword}%') or member_nick like CONCAT('%${keyword}%')</if>
+			<if test="searchType == 't'.toString()" >  and board_title like CONCAT('%${keyword}%') </if>
+			<if test="searchType == 'c'.toString()" >  and board_content like CONCAT('%${keyword}%') </if>
+			<if test="searchType == 'w'.toString()" >  and member_nick like CONCAT('%${keyword}%') </if>
+		</if>
+	</sql>
+	<!-- 게시물 리스트 + 페이징  +  검색-->
+
+</mapper>

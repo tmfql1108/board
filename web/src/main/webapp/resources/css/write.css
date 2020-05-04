@@ -1,0 +1,32 @@
+@charset "UTF-8";
+.board-write-button-wrap {
+	display: block;
+	margin-left: 130px;
+}
+.board-write-button-wrap button {
+	width:105px;
+	height : 50px;
+	background-color: gray; 
+	border: none;
+	color: white;
+	padding: 12px 17px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 15px;
+}
+
+.board-register-table input {
+	width:370px;
+	border: #efefef solid 1px;
+}
+
+ .board_content {
+	resize: none;
+	width: 368px;
+	height: 265px;
+	border: #efefef solid 1px;
+}
+
+.board-register-table{
+	width: 60%
+}
