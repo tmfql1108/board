@@ -62,9 +62,9 @@ parameterType = 데이터를 넣을때 사용
 	 </update>
 
 <!-- 댓글 삭제 -->
-	<delete id="replyDelete"  parameterType="String"> 
+	<delete id="replyDelete"  parameterType="com.board.domain.ReplyVO"> 
 		delete from tbl_comment  
-			where  member_nick = #{member_nick};
+			where  member_nick = #{member_nick} and board_no = #{board_no}
 	</delete>
 
 

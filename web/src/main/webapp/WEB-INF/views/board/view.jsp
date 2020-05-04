@@ -20,9 +20,6 @@
 
 	 <div class = "board-detail">
 			<form  class="board-detail-form"  method="post">
-				<input type ="hidden" id="comment_no" name = "comment_no" value = "${ readReply.comment_no}" readonly="readonly">
-				<input type ="hidden" id="board_no" name = "board_no" value = "${ readReply.board_no}" readonly="readonly">
-			
 				<input type ="hidden" id="page" name = "page" value = "${ scri.page}" readonly="readonly">
 				<input type ="hidden" id="perPageNum" name = "perPageNum" value = "${ scri.perPageNum}" readonly="readonly">
 				<input type ="hidden" id="searchType" name = "searchType" value = "${ scri.searchType}" readonly="readonly">
@@ -60,7 +57,9 @@
 							<a href = "/board/delete?board_no=${view.board_no}">삭제</a>
 						</c:if>
 				</div>
+
 		</form>
+		
 	<!-- 댓글 입력 부분 -->
         <div class="review-wrap">
           <div class="review-top">
@@ -81,6 +80,7 @@
           <ul class='review-content' id='review-content'>
           </ul>
        </div>	
+      
 </div>
 
 <script type="text/javascript">
@@ -134,6 +134,10 @@
 							                str += "<div class='review-name'>";
 							                str += "<span>" +value. member_nick+ "</span>";
 							                str += "</div>";
+							                str += "<div class='reply-no-box'>";
+							                str += "<input type ='text' id='review-no' name = 'review-no' value = "+value.comment_no+">";
+							               /*  str += "<span class='review-no' id ='review-no' > 등록번호" + value.comment_no + "</span>"; */
+							                str += "</div>";
 							                str += "</li>";
 					              } else {
 							            	  //그 외 열람만
@@ -141,7 +145,7 @@
 							                str += "<div class='review-box' id='review-box'>";
 							                str += "<p class='review-text-result' id = 'review-text-result'>" + value.comment + "</p>";
 							                str += "<div class='review-bottom'>";
-							                str += "<span class='review-date'>" + value.comment_reg  + "</span>";
+							                str += "<span class='review-date' id ='review-date'>" + value.comment_reg  + "</span>";
 							                str += "</div>";
 							                str += "</div>";
 							                str += "<div class='review-name'>";
@@ -194,7 +198,8 @@
 		              "board_no": board_no,
 		              "member_nick": member_nick,
 		              "comment": comment
-		            },    success: function () {
+		            },    
+		            success: function () {
 		              console.log("reply_insert success");
 		              $("#text-comment").val("");
 		              getReply(commentLen);
@@ -274,21 +279,25 @@
     <script type="text/javascript" >
     var board_no = '${view.board_no}';
     var member_nick = '${member.member_nick}';
-    console.log("+++++board_no : "+board_no);
-  	console.log("+++++comment_no : "+comment_no);
+    
+   var comment_no = $('.review-no').val();
       //댓글 삭제   
       $(document).on("click", ".review-btn-delete", function () {
         console.log("삭제 버튼 클릭");
 
         var delectConfirm = confirm("댓글을 삭제하시겠습니까?");
 
+        console.log("+++++board_no : "+board_no);
+      	console.log("+++++member_nick : "+member_nick);
+      	console.log("+++++comment_no : "+comment_no);
         if (delectConfirm) {
           $.ajax({
             url: "/comment_delete",
             type: "POST",
             data: {
               "board_no": board_no,
-              "member_nick": member_nick
+              "member_nick": member_nick,
+              "comment_no": comment_no
             },
             success: function () {
               getReply(commentLen);

@@ -53,10 +53,9 @@ public class ReplyDAOImpl implements ReplyDAO {
 	
 	//댓글 삭제
 	@Override
-	public String  replyDelete(String member_nick) throws Exception {
+	public  void replyDelete(ReplyVO vo) throws Exception {
 		log.info("===== ReplyDAOImpl :: replyDelete() invoked.");
-		sqlSession.delete(namespace + ".replyDelete", member_nick);
-		return member_nick;
+		sqlSession.delete(namespace + ".replyDelete", vo);
 	}  //end replyDelete
 
 	 // 게시글에 따른 댓글 개수
