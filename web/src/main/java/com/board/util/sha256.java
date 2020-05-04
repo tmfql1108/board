@@ -24,10 +24,8 @@ public class sha256 {
 				String hex = Integer.toHexString(0xff  & byteData[i]);
 				
 				if(hex.length() == 1) {
-					   // 한자리일 경우 앞에 0 추가
 					hexString.append('0');
 				}  //end if
-				// 암호화 된 결과값을 HEX값으로 출력
 				hexString.append(hex);
 			}  //end for
 			return hexString.toString();

@@ -91,7 +91,7 @@
 				return true;
 			}  //end checkMemberId
 			
-			function checkMemberPwd(member_id, member_pwd){
+			function checkMemberPwd(member_pwd){
 				if(!checkExistData(member_pwd , "패스워드를")) return false; 
 				
 				var pwdRegExp = /^[a-zA-Z0-9]{4,12}$/;
@@ -101,6 +101,7 @@
 			            form.member_pwd.focus();
 			            return false;
 			        }  //end if
+
 			        return true; //확인이 완료되었을 때
 			}  //end checkMemberPwd
 			

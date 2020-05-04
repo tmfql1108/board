@@ -45,8 +45,10 @@ public class ReplyController {
 			   @ModelAttribute("ReplyVO") ReplyVO vo, 
 			   @RequestParam("board_no") int board_no ) throws Exception{
 	log.info("===== ReplyController :: replyInsert() invoked.");
-		service.updateReplyCnt(vo.getBoard_no(), 1);
+		
 		service.replyCreate(vo);
+		
+		service.updateReplyCnt(vo.getBoard_no(), 1);
 	}  //replyInsert
 	
 	//댓글 수정

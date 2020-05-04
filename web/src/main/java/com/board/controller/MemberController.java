@@ -152,13 +152,21 @@ public class MemberController {
 	
 	//회원 탈퇴
 	@RequestMapping(value = "/withdrawal", method =RequestMethod.POST )
-	public String postWithdrawal(HttpSession session, MemberVO vo, RedirectAttributes rttr) throws Exception {
+	public String postWithdrawal(
+			HttpSession session, 
+			MemberVO vo, 
+			RedirectAttributes rttr
+			) throws Exception {
 		log.info("===== MemberController :: postWithdrawal invoked.");
 		
 		MemberVO member = (MemberVO) session.getAttribute("member");  //세션 값 비교
 		
 		String oldPWD = member.getMember_pwd();  //기존 member에 있던 값
-		String newPWD = vo.getMember_pwd();   //탈퇴 페이지에서 입력한 값
+		System.out.println("+++++oldPWD : "+oldPWD);
+		
+		String PWD = vo.getMember_pwd();
+		String newPWD = sha256.encrypt(PWD);//탈퇴 페이지에서 입력한 값
+		System.out.println("+++++newPWD : "+newPWD);
 		
 		if(!oldPWD.equals(newPWD)) {     
 			//다른 비밀번호 입력시 에러

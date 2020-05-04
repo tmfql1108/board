@@ -31,7 +31,7 @@
 		 </div>
 	</form>
 	
-	<c:if test="${msg ==false }">
+	<c:if test="${msg == false }">
 		<p>
 			입력한 비밀번호가 잘 못 되었습니다. 
 		</p>
