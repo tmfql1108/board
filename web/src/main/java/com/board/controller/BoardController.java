@@ -28,12 +28,13 @@ public class BoardController {
 
 	@Inject
 	BoardService service;
-	@Inject
-	ReplyService replyservice;
 	
 	//글목록 + 페이징 + 검색
 	@RequestMapping(value ="/listSearch", method = RequestMethod.GET)
-	public void getLlstSearch(@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
+	public void getLlstSearch(
+			@ModelAttribute("scri") SearchCriteria scri,
+			Model model) throws Exception {
+		
 		 log.info("BoardController:: getLlstSearch invoke");
 		
 		
@@ -55,7 +56,6 @@ public class BoardController {
 		 log.info("BoardController:: getWirte invoke");
 		 
 		 Object loginInfo = session.getAttribute("member");
-		 
 		 if( loginInfo  == null) {  //member 컨트롤로에서 세션값을 가져와서 로그인 여부 확인
 			 model.addAttribute("msg", false);  
 		 }  //end if

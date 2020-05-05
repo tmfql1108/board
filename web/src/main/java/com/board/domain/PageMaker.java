@@ -24,7 +24,8 @@ public class PageMaker {
 	}
 
 	public void setTotalCnt(int totalCnt) {
-		this.totalCnt = totalCnt;  //전체 게시물의 갯수를 받아서 처리한다. 
+		this.totalCnt = totalCnt;  //전체 게시물의 갯수를 받아서 처리한다.
+		System.out.println("+++++++totalCnt"+ totalCnt);
 		calcData();
 	}
 

@@ -27,23 +27,23 @@
 						<tbody class = "member-register-table-tbody" >
 								<tr>
 									 <th> <label for="member_id">아 이 디 : </label></th>
-									  <td><input type="text" id="member_id" name="member_id" placeholder="아이디를 입력해주세요" /></td>
+									  <td><input type="text" id="member_id" name="member_id" placeholder="영문 대소문자와 숫자 4~12자리"  required/></td>
 									  <td><button type = "button" class = "idCheck"> 아이디 확인 </button></td>
 								      <td> <p class = "idResult"><span class ="msg"></span> </p><td>
 								</tr>
 								<tr>
 									  <th><label for="member_pwd">패스워드 : </label></th>
-									  <td><input type="password" id="member_pwd" name="member_pwd" placeholder="패스워드를 입력해주세요 " /></td>
+									  <td><input type="password" id="member_pwd" name="member_pwd" placeholder="영문 대소문자와 숫자 4~12자리"  required/></td>
 								 </tr>
 								 <tr>
 									  <th><label for="member_nick">닉 네 임 : </label></th>
-									 <td> <input type="text" id="member_nick" name="member_nick" placeholder="닉네임을입력해주세요" /></td>
+									 <td> <input type="text" id="member_nick" name="member_nick" placeholder="영문 대소문자와 숫자 4~12자리"  required/></td>
 									  <td> <button type = "button" class = "nickCheck"> 닉네임 확인 </button></td>
 										<td><p class = "nickResult"><span class ="msg"></span> </p></td>
 							 	 </tr>
 							 	 <tr>
 								 	 <th> <label for="member_email">이메일 : </label></th>
-									  <td><input type="text" id="member_email" name="member_email" placeholder= "ex@eeee.ex" /></td>
+									  <td><input type="text" id="member_email" name="member_email" placeholder= "ex@eeee.ex" required /></td>
 								</tr>
 							</tbody>
 					</table>
@@ -122,7 +122,7 @@
 			        if (!checkExistData(member_nick, "닉네임을"))
 			            return false;
 			 
-			        var nickRegExp =  /^[a-zA-Z0-9]{4,12}$/;
+			        var nickRegExp = /^[a-zA-Z0-9]{4,12}$/;
 			        if (!nickRegExp.test(member_nick)) {
 			            alert("닉네임은 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
 			            form.member_nick.value = "";
@@ -142,6 +142,7 @@
 					type : "post",
 					data : query,
 					success : function(data) {
+						console.log("data : " + data);
 						if(data == 1) {
 							console.log("+++++아이디 사용 불가");
 							$(".idResult .msg").text("사용 불가");
@@ -167,6 +168,7 @@
 					type : "post",
 					data :  query,
 					success : function(data) {
+						console.log("data : " + data);
 						if(data == 1) {
 							console.log("+++++닉네임 사용 불가");
 							$(".nickResult .msg").text("사용 불가");

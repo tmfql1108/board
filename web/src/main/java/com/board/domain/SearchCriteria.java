@@ -2,6 +2,7 @@ package com.board.domain;
 
 public class SearchCriteria extends Criteria {
 
+	//검색 타입
 	private String searchType ="";
 	private String keyword = "";
 	

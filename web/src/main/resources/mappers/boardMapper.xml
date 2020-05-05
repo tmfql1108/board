@@ -96,7 +96,7 @@ parameterType = 데이터를 넣을때 사용  		-->
 		 board_title, 
 		 board_content,
 		 member_nick, 
-		 board_viewcnt , 
+		 board_viewcnt, 
 		 board_reg,
 		 replycnt
     from tbl_board
@@ -104,7 +104,7 @@ parameterType = 데이터를 넣을때 사용  		-->
 	<include refid="search"></include>
 	<![CDATA[
 		order by board_no desc ,board_reg desc
-		limit #{rowStart}  , #{rowEnd};
+		limit #{rowStart}, #{rowEnd};
 	 ]]>
 	</select>
 	<!-- 게시글 리스트 조회 -->
@@ -112,10 +112,10 @@ parameterType = 데이터를 넣을때 사용  		-->
 	<!-- 검색 조건 -->
 	<sql id="search">
 		<if test="searchType != null">
-			<if test="searchType == 'all'.toString()" >  where  board_title like CONCAT('%${keyword}%') or board_content like CONCAT('%${keyword}%') or member_nick like CONCAT('%${keyword}%')</if>
-			<if test="searchType == 't'.toString()" >  where board_title like CONCAT('%${keyword}%') </if>
-			<if test="searchType == 'c'.toString()" >  where board_content like CONCAT('%${keyword}%') </if>
-			<if test="searchType == 'w'.toString()" >  where member_nick like CONCAT('%${keyword}%') </if>
+			<if test="searchType == 'all'.toString()" >  where board_no > 0 and board_title like CONCAT('%${keyword}%') or board_content like CONCAT('%${keyword}%') or member_nick like CONCAT('%${keyword}%')</if>
+			<if test="searchType == 't'.toString()" >  where board_no > 0 and board_title like CONCAT('%${keyword}%') </if>
+			<if test="searchType == 'c'.toString()" >  where board_no > 0 and board_content like CONCAT('%${keyword}%') </if>
+			<if test="searchType == 'w'.toString()" >  where board_no > 0 and member_nick like CONCAT('%${keyword}%') </if>
 		</if>
 	</sql>
 	<!-- 검색 조건 -->

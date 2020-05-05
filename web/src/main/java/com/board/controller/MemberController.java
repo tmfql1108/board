@@ -51,10 +51,11 @@ public class MemberController {
 			RedirectAttributes rttr) throws Exception {
 		log.info("===== MemberController :: login(MemberVO vo, HttpServletRequest req) invoked.");
 
-		HttpSession session = req.getSession(); //세션
+		//session은 object로 저장
+		HttpSession session = req.getSession(); //세션 가져오기
 
 		String member_pwd = vo.getMember_pwd();
-		vo.setMember_pwd(sha256.encrypt(member_pwd));
+		vo.setMember_pwd(sha256.encrypt(member_pwd));  //sha-256 암호화
 		
 		System.out.println("+++++member_pwd encoding : " + vo.getMember_pwd());
 		
@@ -87,7 +88,7 @@ public class MemberController {
 		int idResult = 0;
 		
 		if(idCheck != null) {
-			idResult = 1;
+			idResult = 1;  //사용불가
 		} //if  
 		return idResult;
 	}// end postIdCheck
@@ -104,7 +105,7 @@ public class MemberController {
 		int nickResult = 0;
 		
 		if(nickCheck != null) {
-			nickResult = 1;
+			nickResult = 1;   //사용불가
 		} //if
 		return nickResult;
 	}// end postNickCheck

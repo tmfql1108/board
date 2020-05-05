@@ -47,12 +47,14 @@ public class Criteria {
 	 }
 	
 	 public int getRowStart() {
-			rowStart = ((page - 1) * perPageNum) + 1;
-			return rowStart;
+		rowStart = ((page - 1) * perPageNum);
+		System.out.println("+++++++rowStart"+ rowStart);
+		return rowStart;
 	}
 	
 	public int getRowEnd() {
-		rowEnd = rowStart + perPageNum - 1;
+		rowEnd = (rowStart+1) + perPageNum - 1;
+		System.out.println("+++++++rowEnd"+ rowEnd);
 		return rowEnd;
 	}
 	
