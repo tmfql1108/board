@@ -172,14 +172,14 @@ public class MemberController {
 		System.out.println("+++++newPWD : "+newPWD);
 		
 		if(!oldPWD.equals(newPWD)) { 
-			System.out.println("이러면 출력안될수도잇음");
+			System.out.println("++++비밀번호 다름");
 			//다른 비밀번호 입력시 에러
 			
 			rttr.addFlashAttribute("msg", false);
 			return "redirect:/member/withdrawal";
 			
 		}  //end if
-		System.out.println("탈퇴가처리 되어야함");
+		System.out.println("+++++탈퇴 처리 완료");
 		
 		service.withdrawal(vo);
 		log.info("===== vo: " + vo.toString());
