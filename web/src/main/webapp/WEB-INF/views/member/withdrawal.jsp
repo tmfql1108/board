@@ -25,18 +25,15 @@
 				  <label for="member_pwd">패스워드 : </label>
 				  <input type="password" id="member_pwd" name="member_pwd" required />
 			 </p>
+			  <c:if test="${msg == false }">
+				<p>
+					비밀번호를 확인해 주세요
+				</p>
+		 	</c:if>
 		 </div>
 		<div class ="member-withdrawal-bottom-group">
 			  	 <button type="submit" id="submit" >탈퇴</button> 
 		 </div>
 	</form>
-	
-	<c:if test="${msg == false }">
-		<p>
-			비밀번호를 확인해 주세요
-		</p>
-	</c:if>
-
-
 </body>
 </html>

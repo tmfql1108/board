@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -156,7 +157,8 @@ public class MemberController {
 	public String postWithdrawal(
 			HttpSession session, 
 			MemberVO vo, 
-			RedirectAttributes rttr) throws Exception {
+			RedirectAttributes rttr,
+			Model model) throws Exception {
 		log.info("===== MemberController :: postWithdrawal invoked.");
 		
 		MemberVO member = (MemberVO) session.getAttribute("member");  //세션 값 비교
@@ -164,19 +166,20 @@ public class MemberController {
 		String oldPWD = member.getMember_pwd();  //기존 member에 있던 값
 		System.out.println("+++++oldPWD : "+oldPWD);
 		
-		//탈퇴 페이지에서 입력한 값
-		/* String newPWD = vo.getMember_pwd(); */
-		
-		String PWD = vo.getMember_pwd();
+		String PWD = vo.getMember_pwd(); //탈퇴 페이지에서 입력한 값 암호화
 		String newPWD = sha256.encrypt(PWD);
 		vo.setMember_pwd(newPWD);
 		System.out.println("+++++newPWD : "+newPWD);
+		
 		if(!oldPWD.equals(newPWD)) { 
-			log.info("===== 비밀번호 다름.");
+			System.out.println("이러면 출력안될수도잇음");
 			//다른 비밀번호 입력시 에러
+			
 			rttr.addFlashAttribute("msg", false);
+			return "redirect:/member/withdrawal";
+			
 		}  //end if
-		log.info("===== 탈퇴처리 되어야한다..");
+		System.out.println("탈퇴가처리 되어야함");
 		
 		service.withdrawal(vo);
 		log.info("===== vo: " + vo.toString());
