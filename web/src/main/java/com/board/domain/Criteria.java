@@ -11,7 +11,7 @@ public class Criteria {
 	private int rowEnd;
 	
 	public Criteria() {
-	//값이 따로 전달되지 않을경우 기본생성자를 통한 기본 값 정의
+	//기본생성자를 통한 기본 값 정의
 	  this.page = 1;
 	  this.perPageNum = 10;
 	 } //end Criteria

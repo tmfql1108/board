@@ -39,6 +39,7 @@ public class BoardDAOImpl implements BoardDAO {
 	//게시글 상세 조회시 조회수 증가
 	@Override
 	public void updateViewCnt(int viewCnt) throws Exception {
+		log.info("===== BoardDAOImpl :: updateViewCnt(int viewCnt) invoked.");
 		sqlSession.update(namespace + ".updateViewCnt", viewCnt);
 	}  //end updateViewCnt
 
