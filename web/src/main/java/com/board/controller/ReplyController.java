@@ -44,8 +44,8 @@ public class ReplyController {
 	//댓글 삽입
 	@RequestMapping(value ="/comment_insert")
 	   public @ResponseBody void replyInsert( 
-			   @ModelAttribute("ReplyVO") ReplyVO vo, 
-			   @RequestParam("board_no") int board_no ) throws Exception{
+			  @ModelAttribute("ReplyVO") ReplyVO vo, 
+			  @RequestParam("board_no") int board_no ) throws Exception{
 	log.info("===== ReplyController :: replyInsert() invoked.");
 		
 		service.replyCreate(vo);
@@ -72,11 +72,8 @@ public class ReplyController {
 		   @ModelAttribute("ReplyVO") ReplyVO vo,
 	       @RequestParam(value = "member_nick", required = false) String  member_nick,
 	       @RequestParam(value = "board_no", required = false) int board_no , 
-	       @RequestParam(value = "comment_no", required = false) int comment_no , 
 	       Model model) throws Exception {
 	 log.info("===== ReplyController :: replyDelete() invoked.");
-
-	 
 		   
 	   service.updateReplyCnt(board_no, -1);
 	   service.replyDelete(vo);

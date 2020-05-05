@@ -26,7 +26,7 @@ public interface BoardDAO {
 	//게시글 리스트 + 페이징 처리 + 검색
 	public List<BoardVO> listSearch(SearchCriteria scri) throws Exception;
 	
-		//게시물 총 갯수
+	//게시물 총 갯수
 	public int searchCnt(SearchCriteria scri ) throws Exception;
 	
 	

@@ -200,6 +200,7 @@
 		              "comment": comment
 		            },    
 		            success: function () {
+		            	
 		              console.log("reply_insert success");
 		              $("#text-comment").val("");
 		              getReply(commentLen);
@@ -296,8 +297,7 @@
             type: "POST",
             data: {
               "board_no": board_no,
-              "member_nick": member_nick,
-              "comment_no": comment_no
+              "member_nick": member_nick
             },
             success: function () {
               getReply(commentLen);
